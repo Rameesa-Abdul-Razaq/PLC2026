@@ -39,10 +39,11 @@ class Circle {
     return Math.pow(b,2);
   }
 
-  // public void printS(String[] args) {
-  //   if(shouldPaintS(10, 10, 10)){
-  //     System.out.println("Painting");
-  //   }
-  // }
+   public void printS(String[] args) {
+    if(shouldPaintS(10, 10, 10)){
+      System.out.println("Painting");
+    }
+   }
   //test comment
+  //Edit made by Rameesa Abdul-Razaq, 240130808
 }
