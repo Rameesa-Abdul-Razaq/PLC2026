@@ -55,7 +55,8 @@ public class Overflow
     */
     private static List<Integer> power(int n, int m)
     {
-        assert m >= 0 : ("power called with illegal value m = " + m);
+        assert m >= 0 : ("power called with illegal value m = " + m); // assertion to ensure that m is non-negative
+        //otherwise it will throw anassertion error with the message "power called with illegal value m = " followed by the actual value of m
 
         List<Integer> resultList = new LinkedList<Integer>();
         int ns = 1;
@@ -86,7 +87,10 @@ public class Overflow
         for ( int j = 1; j <= m; j++ )
         {
             ns = ns * n;
-//             assert ?? : "Floating-point overflow";
+            assert !Float.isInfinite(ns) : "Floating-point overflow"; 
+            // The assertion checks if the result of multiplying ns by n has resulted in an infinite value,
+            // which would indicate that the floating-point number has exceeded its maximum representable value. 
+            // If this happens, it throws an AssertionError with the message "Floating-point overflow".
             resultList.add(ns);
         }
         return resultList;
@@ -112,7 +116,10 @@ public class Overflow
         for ( int j = 0; j <= m; j++ )
         {
             ns_inv = ns_inv / n; // update from 1/n^(i-1) to 1/n^i
-//             assert ?? : "Floating point underflow";
+            assert !Float.isInfinite(ns_inv) && !Float.isNaN(ns_inv) : "Floating point underflow";
+            // The assertion checks if the value of ns_inv has become infinite or NaN (Not a Number) due to underflow,
+            // which can occur when dividing a very small number by n. 
+            // If this happens, it throws an AssertionError with the message "Floating point underflow".
             geom_sum = ns_inv + geom_sum;
             resultList.add(geom_sum);
         }
@@ -124,7 +131,12 @@ public class Overflow
         int n = getPositiveInteger("n");
         int m = getPositiveInteger("m");
         int t = getPositiveInteger("task (1=floating-point n^m; 2=integer n^m; 3=floating-point 1+1/n+1/n^2+...+1/n^m)");
-
+        // first get the positive integers n and m from the user, 
+        // and then get the task number t to determine which computation to perform. using the calculation
+        //t also gives out a prompt to the user to specify which task they want to execute:
+        //1 for computing the sequence of powers n^0, n^1, ..., n^m using floating-point arithmetic,
+        //2 for computing the same sequence using integer arithmetic, and
+        //3 for computing the series of partial sums of a harmonic series using floating-point arithmetic.
         switch(t)
         {
             case 1: System.out.println(power_fp(n,m)); break;
