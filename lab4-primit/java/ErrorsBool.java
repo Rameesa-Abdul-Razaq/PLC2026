@@ -33,21 +33,19 @@ public class ErrorsBool
     }
   
 
+    
     private static Result pl2PLType(Error e)
+    //is basicaly an if else statement 
     {
         Result type = 
             (e == Error.FP_OVERFLOW ? Result.INFINITY :
-                (e == Error.FP_UNDERFLOW ? Result.ZERO :
-                    (e == Error.FP_ROUNDING ? Result.A_BIT_DIFFERENT : 
-                        true ? Result.VERY_DIFFERENT
-                    )
-                )
-            );
-        /* 
-            !!!! Beware: The above is not a recommended programming style.
-            !!!!         It is used here only to develop understanding of
-            !!!!         functional and imperative if-then-else statements.
-        */
+	         (e == Error.FP_UNDERFLOW ? Result.ZERO :
+		        (e == Error.FP_ROUNDING ? Result.A_BIT_DIFFERENT : 
+				     Result.VERY_DIFFERENT
+		        )
+	         )
+          );
+       
         return type;
     }
 
