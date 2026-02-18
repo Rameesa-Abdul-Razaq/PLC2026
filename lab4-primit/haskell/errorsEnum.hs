@@ -8,12 +8,14 @@ main =
     putStrLn ("known results = " ++ show allResults)
     result <- getElement "result"
     putStrLn (show result ++ " results from: " ++ show (result2Error result))
+    -- printing to the terminal
     
 initialiseIO =
     do
     hSetBuffering stdout NoBuffering
         -- ensure any console output is shown asap
 
+--haskells way of declaring enums and constructors
 data Error = FP_Rounding | FP_Overflow | FP_Underflow | Int_Overflow
     deriving (Show, -- default formatting
               Read, -- default parsing
@@ -30,6 +32,7 @@ data Result = Zero | Infinity | ABitDifferent | VeryDifferent
 allResults :: [Result] -- ie it is a list of PL elements
 allResults = [minBound .. maxBound]
 
+-- matching the resutls to the errors listed
 result2Error ABitDifferent = FP_Rounding
 result2Error Infinity = FP_Overflow
 result2Error Zero = FP_Underflow
