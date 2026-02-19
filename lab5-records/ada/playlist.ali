@@ -8,12 +8,14 @@ RV NO_EXCEPTION_PROPAGATION
 RV NO_EXCEPTIONS
 RV NO_FLOATING_POINT
 RV NO_IO
+RV NO_IMPLICIT_CONDITIONALS
 RV NO_NESTED_FINALIZATION
 RV NO_SECONDARY_STACK
 RV NO_STANDARD_STORAGE_POOLS
+RV NO_DYNAMIC_SIZED_OBJECTS
 RV SPARK_05
 
-U playlist%b		playlist.adb		1e1aa9d9 NE OO SU
+U playlist%b		playlist.adb		0ebbc1f7 NE OO SU
 W ada%s			ada.ads			ada.ali
 Z ada.exceptions%s	a-except.adb		a-except.ali
 W ada.float_text_io%s	a-flteio.ads		a-flteio.ali
@@ -22,6 +24,7 @@ W ada.strings%s		a-string.ads		a-string.ali
 W ada.strings.unbounded%s  a-strunb.adb		a-strunb.ali
 Z ada.tags%s		a-tags.adb		a-tags.ali
 W ada.text_io%s		a-textio.adb		a-textio.ali
+Z interfaces%s		interfac.ads		interfac.ali
 Z system%s		system.ads		system.ali
 Z system.secondary_stack%s  s-secsta.adb	s-secsta.ali
 Z system.soft_links%s	s-soflin.adb		s-soflin.ali
@@ -46,7 +49,7 @@ D a-tiinio.ads		20180111085525 aa04e5d6 ada.text_io.integer_io%s
 D a-unccon.ads		20170908151217 0e9b276f ada.unchecked_conversion%s
 D interfac.ads		20180111085525 5ab55268 interfaces%s
 D i-cstrea.ads		20180111085525 e53d8b8e interfaces.c_streams%s
-D playlist.adb		20260218125049 6d1977b5 playlist%b
+D playlist.adb		20260219110641 7db81f9b playlist%b
 D system.ads		20180111085525 4635ec04 system%s
 D s-atocou.ads		20180111085525 b45c2d8d system.atomic_counters%s
 D s-crtl.ads		20180111085525 0ebbdb71 system.crtl%s
@@ -78,31 +81,36 @@ X 10 a-string.ads
 16K13*Strings 35e16 20|4r10 4r37
 X 12 a-strunb.ads
 76K21*Unbounded 490e26 20|4w18 4r45
-79R9*Unbounded_String<5|43R9> 474e14 20|10r16 19r23
-94V13*To_Unbounded_String{79R9} 20|38s17 39s31
-100V13*To_String{string} 20|15s14 27s14
+79R9*Unbounded_String<5|43R9> 474e14 20|10r16 30r37
+94V13*To_Unbounded_String{79R9} 20|59s18 60s31
+100V13*To_String{string} 20|15s14 42s18
 X 14 a-textio.ads
 49K13*Text_IO 471e16 20|3w10 3r37
 73I12*Field{integer}
-242U14*Put 20|15s9 27s9 28s9 30s9 32s9
-263U14*Put_Line 20|51s5
+242U14*Put 20|15s9 42s13 43s13 45s13 47s13 49s13 51s13
+263U14*Put_Line 20|72s5 74s5
 X 15 a-tiflio.ads
-68U14*Put 20|31s9[6|20]
-71i7 Aft{14|73I12} 20|31r29[6|20]
-72i7 Exp{14|73I12} 20|31r39[6|20]
+68U14*Put 20|46s13[6|20] 50s13[6|20]
+71i7 Aft{14|73I12} 20|46r33[6|20] 50r33[6|20]
+72i7 Exp{14|73I12} 20|46r43[6|20] 50r43[6|20]
 X 20 playlist.adb
-6U11*PlayList 6b11 54l5 54t13
-8R10 Person 11e15 13r31 20r23
-10r9 name{12|79R9} 15r27 39m23
-13U15 Put_Person 13b15 13>27 16l9 16t19 29s9
+6U11*PlayList 6b11 75l5 75t13
+8R10 Person 11e15 13r31 31r34
+10r9 name{12|79R9} 15r27 60m23
+13U15 Put_Person 13b15 13>27 16l9 16t19 44s13
 13r27 p{8R10} 15r25
-18R10 Item 22e15 24r29 37r14
-19r9 name{12|79R9} 27r27 38m9
-20r9 performer{8R10} 29r23 39m9
-21f9 length_secs{float} 31r16 40m9
-24U15 Put_Item 24b15 24>25 33l9 33t17 50s5
-24r25 i{18R10} 27r25 29r21 31r14
-37r5 piece1{18R10} 50r15
+25E12 item_variant_type 25e47 26r30
+25n34 piece{25E12} 30r21 41r15 57r35 58r25
+25n41 pause{25E12} 32r21 48r15 64r36 66r26
+26R10 Item 26d15 35e20 37r29 57r14 64r15
+26e15 item_variant{25E12} 29r18 40r14
+28f13 length_secs{float} 46r20 50r20 61m9 67m10
+30r30 name{12|79R9} 42r31 59m10
+31r22 performer{8R10} 44r27 60m9
+37U15 Put_Item 37b15 37>25 53l8 53t16 71s5 73s5
+37r25 i{26R10} 40r12 42r29 44r25 46r18 50r18
+57r5 piece1{26R10} 71r15
+64r6 pause1{26R10} 73r14
 X 21 system.ads
 67M9*Address
 X 28 s-memory.ads

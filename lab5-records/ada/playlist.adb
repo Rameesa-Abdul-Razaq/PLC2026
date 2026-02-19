@@ -25,12 +25,12 @@ procedure PlayList is -- defines a subprogram named PlayList, which is the main 
       type item_variant_type is (piece, pause); 
     type Item(item_variant : item_variant_type) is 
          record 
-            length_secs : Float; 
+            length_secs : Float; --coomon field for both piece and pause
             case item_variant is 
                when piece => name : Unbounded_String; 
                      performer : Person; 
                when pause => 
-                     null; 
+                     null; --no additional fields for pause, just the length in seconds
             end case; 
          end record; 
 
@@ -45,7 +45,7 @@ procedure PlayList is -- defines a subprogram named PlayList, which is the main 
             Put (" ("); 
             Put (i.length_secs, aft => 1, exp => 0); 
             Put ("s)"); 
-         when Pause => 
+         when pause => 
             Put ("Pause ("); 
             Put (i.length_secs, aft => 1, exp => 0); 
             Put ("s)"); 
@@ -55,13 +55,15 @@ procedure PlayList is -- defines a subprogram named PlayList, which is the main 
     -- consutructing an instance of the Item record type to represent a music piece,
     -- with the name "Moonlight Sonata", performed by Claudio Arrau, and a length
     piece1 : Item(item_variant => piece) :=
-       (name => To_Unbounded_String ("Moonlight Sonata"),
+       (item_variant => piece,
+         name => To_Unbounded_String ("Moonlight Sonata"),
         performer => (name => To_Unbounded_String ("Claudio Arrau")),
         length_secs => 17.0*60.0+26.0
        );
 
      pause1 : Item(item_variant => pause) :=
         (
+         item_variant => pause,
          length_secs => 5.0
        );
 
