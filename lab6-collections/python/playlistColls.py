@@ -1,22 +1,30 @@
 class Piece:
+   #self is the object being created (like "this" in Java)
+   # name, performer, length_secs are the parameters of the constructor (sets)    
     def __init__(self, name, performer, length_secs): # constructor
         self.name = name
         self.performer = performer
         self.length_secs = length_secs
-        self.check()
+        self.check() # calls check() to validate data
 
+    # __repr__ is like toString() in Java 
+    #  it defines how to print an object
     def __repr__(self):  # formatting (like toString())
         result = "%s by %s (%.2fs)" % (self.name, self.performer, self.length_secs)
         return result
 
     def check(self):
         # do some dynamic type checking:
+        # enforces that name and performer are strings
+        # and length_secs is a positive number less than 10 hours
         assert self.name.__class__ == str
         assert self.performer.__class__ == str
         assert self.length_secs.__class__ == type(1.0)
         l = self.length_secs
         assert 0 < l and l < 36000
 
+
+#contains the functions from Peice and has some checking
 class Product:
     def __init__(self, name, brand):
         self.name = name
@@ -32,6 +40,7 @@ class Product:
         assert self.name.__class__ == str
         assert self.brand.__class__ == str
 
+# also contains the functions from Piece and has some checking
 class Advert:
     def __init__(self, product, length_secs): # constructor
         self.product = product
@@ -49,16 +58,22 @@ class Advert:
         l = self.length_secs
         assert 0 < l and l < 120
 
+#this is creating the objects that we will be using in the list and dictionary examples below
 piece1 = Piece("Moonlight", "C. Arrau", 17*60+26.0)
 piece2 = Piece("Pathetique", "D. Barenboim", 16*60+49.0)
 advert1 = Advert(Product("Bounty", "Mars"), 15.0)
 
 # a heterogeneous list:
 things = [111, piece1, "hello", advert1, [piece2]]
+#contains int, Peice, string, Advert, and list of Piece
 
 print("things = %s" % things)
 
-piecesFromThings = "todo" #TASK 6.2-c -- replace "todo" by a list comprehension
+# list comprehension to extract the pieces from things:
+# for each piece in things, 
+# if the piece is a Piece,
+#  add it to the list piecesFromThings
+piecesFromThings = [ piece for piece in things if piece.__class__== Piece ]
 
 print("piecesFromThings = %s" % piecesFromThings)
 
@@ -74,7 +89,10 @@ playlist1noAds = [ item for item in playlist1 if item.__class__ != Advert ]
 
 print("playlist1noAds = %s" % playlist1noAds)
 
-shortItemLenghts1 = "todo" # TASK 6.2-b -- replace "todo" by a list comprehension
+#task for each item in playlist1, 
+# if the item is less than 20 seconds long, 
+# add its length to the list shortItemLenghts1
+shortItemLenghts1 =  [ item.length_secs for item in playlist1 if item.length_secs < 20 ]
 
 print("shortItemLenghts1 = %s" % shortItemLenghts1)
 

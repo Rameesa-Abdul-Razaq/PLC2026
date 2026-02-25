@@ -7,6 +7,9 @@ import java.util.stream.Collectors; // Java 8 and above
 
 public class PlaylistColls {
 
+    //is a parent class, and represents anything that has a length seconds
+    //both music peices and adverts extend this
+    //abstract --> we can't create an instance of Item, but we can create instances of its subclasses
     public static abstract class Item {
         public final float length_secs;
 
@@ -15,6 +18,8 @@ public class PlaylistColls {
         }
     }
 
+    //peice extends item, so it inherits its fields
+    //has 2 addtional fields, name and performer
     public static class Piece extends Item {
         public final String name;
         public final String performer;
@@ -31,6 +36,7 @@ public class PlaylistColls {
         }
     }
 
+    //represnts a product being advertised
     public static class Product {
         public final String name;
         public final String brand;
@@ -46,6 +52,8 @@ public class PlaylistColls {
         }
     }
 
+    //extends item, so it inherits its fields
+    //contains a product and a duration in seconds
     public static class Advert extends Item {
         public final Product product;
 
@@ -66,6 +74,8 @@ public class PlaylistColls {
         Piece piece2 = new Piece("Pathetique", "D. Barenboim", 16 * 60 + 49f);
         Advert advert1 = new Advert(new Product("Bounty", "Mars"), 15.0f);
 
+        //the list type is Item, this works becuause Peice and Advert
+        //this is polymorphism, we can treat pieces and adverts as items, because they are both items
         List<Item> playlist1 = Arrays.asList(new Item[] { piece1, advert1, piece2 });
         System.out.printf("playlist1 = %s\n", playlist1);
 
@@ -78,6 +88,9 @@ public class PlaylistColls {
         System.out.printf("lengths1 = %s\n", lengths1);
 
         // an equivalent of the above, using Java 8 streams:
+        //.strema() converts list into a stream
+        //.map() tranforms each item
+        //.collect() gathers results into a list
         List<Float> lengths1_streams = playlist1.stream()
                 .map(e -> e.length_secs)
                 .collect(Collectors.toList());
@@ -95,6 +108,7 @@ public class PlaylistColls {
         System.out.printf("playlist1noAds = %s\n", playlist1noAds);
 
         // an equivalent of the above, using Java 8 streams:
+        //.filer() keeps only elements that match the condiition 
         List<Item> playlist1noAds_streams = playlist1.stream()
                 .filter(e -> !(e instanceof Advert))
                 .collect(Collectors.toList());
@@ -103,20 +117,23 @@ public class PlaylistColls {
 
         List<Float> shortItemLengths1 = new ArrayList<>();
         // TASK 6-1(b)...
-
-
-
-
-
+        //finds the very short items in the playlist
+        //in this one it is 15 and so the result would be [15.0]
+        for (Item item : playlist1) {
+                 if (item.length_secs < 20) { 
+                     shortItemLengths1.add(item.length_secs);
+               }
+        } 
 
         System.out.printf("shortItemLengths1 = %s\n", shortItemLengths1);
 
         System.out.println();
 
         // Optional TASK:
+        // create a map from pieces to their scores (out of 10), and print the score of piece1
         Map<Piece, Float> pieceToScoreA = new HashMap<>();
         pieceToScoreA.put(piece1, 10.0f);
-        // pieceToScoreA.put(piece2, "dunno");
+        //pieceToScoreA.put(piece2, "dunno");
         System.out.format("pieceToScore = %s\n", pieceToScoreA);
         System.out.format("piece1's score = %s\n", pieceToScoreA.get(piece1));
     }
