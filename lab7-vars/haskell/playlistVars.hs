@@ -46,6 +46,8 @@ playlist1 = [piece1, advert1, piece2]
     piece2  = Piece "Pathetique" "D. Barenboim"  (16*minutes+49*seconds)
     advert1 = Advert (Product "chocolate" "Yummm")          (15*seconds)
     minutes = 60*seconds -- TASK 7.4 a: identify the scope of variable "minutes"
+    -- is a local variable to the where clause, 
+    -- so it is only visible in the definition of playlist1 and not outside of it
     seconds = 1
 
 length1 = sum [ item_length_secs item | item <- playlist1 ]

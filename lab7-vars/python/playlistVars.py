@@ -3,7 +3,7 @@ class Piece:
         self.name = name
         self.performer = performer
         self.length_secs = length_secs
-        self.check()
+        self.check() #recursion - check calls assert which may call __repr__ which may call check again, but it will not loop forever because the assert will succeed and not call __repr__ again
 
     def __repr__(self):  # formatting (like toString())
         result = "%s by %s (%.2fs)" % (self.name, self.performer, self.length_secs)
@@ -55,6 +55,7 @@ def definePlaylist1():
     piece1 = Piece("Moonlight", "C. Arrau", 17*60+26.0)
     piece2 = Piece("Pathetique", "D. Barenboim", 16*60+49.0)
     advert1 = Advert(Product("chocolate", "Yummm"), 15.0)
+    global playlist1
     playlist1 = [piece1, advert1, piece2]
     # TASK 7.3 b: fix the bug related to the scope and declaration of playlist1
     # you may ONLY edit the body of this function ("definePlaylist1"), no other code in playlistVars.py

@@ -93,10 +93,14 @@ begin
         item := playlist1(i);
         case item.all.item_variant is
         when PIECE =>
-            length1 := length1 + item.all.piece_length_secs; -- TASK 7.5: fix compiler error
+            length1 := length1 + Float(item.all.piece_length_secs); -- TASK 7.5: fix compiler error
         when ADVERT =>
-            length1 := length1 + item.all.ad_length_secs; -- TASK 7.5: fix compiler error
+            length1 := length1 + Float(item.all.ad_length_secs); -- TASK 7.5: fix compiler error
         end case;
+        -- or to fix this compiler error, we could do this instead:
+        -- use a subtype instead 
+        -- subtype Piece_Length_Type is Float range 0.0..36000.0;
+        -- subtype Advert_Length_Type is Float range 0.0..120.0;
     end loop;
 
     Put("length1 = ");
